@@ -83,7 +83,7 @@ st.markdown(
 # Hero image smaller + centered
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    st.image("assets/example.jpg", width=500)
+    st.image("assets/example.jpg", width=700)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
