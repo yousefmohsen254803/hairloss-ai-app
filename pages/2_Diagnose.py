@@ -110,7 +110,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 file = st.file_uploader("Upload your photo", type=["jpg", "jpeg", "png"])
 
 # IMPORTANT: define API_URL once
-API_URL = "http://127.0.0.1:8000/predict"
+API_URL = "https://hairloss-ai-app.onrender.com/predict"
 
 if file is not None:
     img = Image.open(file)
