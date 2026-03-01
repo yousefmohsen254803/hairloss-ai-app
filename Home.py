@@ -80,8 +80,8 @@ st.markdown(
 )
 
 
-# Hero image smaller + centered
-col1, col2, col3 = st.columns([1, 2, 1])
+# Example image smaller + centered
+col1, col2, col3 = st.columns([3, 2, 3])
 with col2:
     st.image("assets/example.jpg", width=2000)
 
