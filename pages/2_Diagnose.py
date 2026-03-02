@@ -53,7 +53,7 @@ def set_background_png(path: str):
             color: rgba(255,255,255,0.98);
             font-size: 18px;
             font-weight: 800;
-            margin-bottom: -10px;
+            margin-bottom: -20px;
             text-align: left;
         }}
 
