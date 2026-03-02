@@ -138,16 +138,14 @@ st.markdown("<br>", unsafe_allow_html=True)
 mode = st.radio(
     "Choose how to add a photo:",
     ["📷 Take a photo", "🖼️ Choose from device"],
-    horizontal=True, unsafe_allow_html=True
+    horizontal=True
 )
 
 file = None
 
 if mode == "📷 Take a photo":
     # On phone: opens camera (and usually offers Photo Library too)
-    file = st.camera_input("Take a photo",
-                unsafe_allow_html=True
-            )
+    file = st.camera_input("Take a photo")
 else:
     file = st.file_uploader("Upload your photo", type=["jpg", "jpeg", "png"])
 
