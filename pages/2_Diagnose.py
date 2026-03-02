@@ -1,16 +1,14 @@
-import os
+import streamlit as st
+import numpy as np
+from PIL import Image
 import base64
 import requests
-import streamlit as st
-from PIL import Image
 
-# -----------------------------
-# Page config (MUST be first)
-# -----------------------------
+# MUST be first Streamlit call
 st.set_page_config(page_title="Diagnose", layout="centered")
 
 # -----------------------------
-# Background
+# Background + UI CSS
 # -----------------------------
 def set_background_png(path: str):
     with open(path, "rb") as f:
@@ -36,50 +34,28 @@ def set_background_png(path: str):
 
         .title {{
             text-align: center;
-            font-size: 52px;
+            font-size: 56px;
             color: white;
             font-weight: 900;
             text-shadow: 0 6px 28px rgba(0,0,0,0.9);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }}
 
         .subtitle {{
             text-align: center;
             font-size: 16px;
-            color: rgba(255,255,255,0.95);
-            margin-bottom: 20px;
+            color: rgba(255,255,255,0.92);
+            margin-top: 0px;
+            margin-bottom: 14px;
         }}
 
-        /* ---------- FIX RADIO TEXT (BRIGHT WHITE) ---------- */
-
-        div[data-testid="stRadio"] > label {{
-            color: rgba(255,255,255,0.95) !important;
-            font-weight: 800 !important;
-        }}
-
+        /* Mode selector (radio) text */
         div[role="radiogroup"] label {{
             color: rgba(255,255,255,0.95) !important;
             font-weight: 700 !important;
         }}
 
-        /* ---------- CAMERA BOX STYLE ---------- */
-
-        div[data-testid="stCameraInput"] {{
-            background: rgba(255,255,255,0.96) !important;
-            padding: 18px !important;
-            border-radius: 16px !important;
-            border: 2px solid rgba(255,255,255,0.96) !important;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.25) !important;
-            max-width: 760px;
-            margin-left: auto;
-            margin-right: auto;
-        }}
-
-        div[data-testid="stCameraInput"] label {{
-            color: #111 !important;
-            font-weight: 700 !important;
-        }}
-
+        /* File uploader card styling */
         div[data-testid="stFileUploader"] {{
             background: rgba(255,255,255,0.96) !important;
             padding: 18px !important;
@@ -90,10 +66,28 @@ def set_background_png(path: str):
             margin-left: auto;
             margin-right: auto;
         }}
-
         div[data-testid="stFileUploader"] label {{
             color: #111 !important;
-            font-weight: 700 !important;
+            font-weight: 800 !important;
+        }}
+        div[data-testid="stFileUploader"] span {{
+            color: #333 !important;
+        }}
+
+        /* Camera input card styling */
+        div[data-testid="stCameraInput"] {{
+            background: rgba(255,255,255,0.96) !important;
+            padding: 18px !important;
+            border-radius: 16px !important;
+            border: 2px solid rgba(255,255,255,0.96) !important;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25) !important;
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto;
+        }}
+        div[data-testid="stCameraInput"] label {{
+            color: #111 !important;
+            font-weight: 800 !important;
         }}
 
         div.stButton > button {{
@@ -108,54 +102,57 @@ def set_background_png(path: str):
             margin-right: auto;
         }}
 
-        .btnrow {{
-            display: flex;
-            gap: 12px;
-            margin-top: 14px;
+        .backwrap {{
+            max-width: 260px;
         }}
-
         </style>
         """,
-        unsafe_allow_html=True,
+        unsafe_allow_html=True
     )
-
 
 set_background_png("assets/background.png")
 
 # -----------------------------
-# API URL (Render deployed)
-# -----------------------------
-API_URL = os.getenv(
-    "API_URL",
-    "https://hairloss-ai-app.onrender.com/predict"
-)
-
-# -----------------------------
-# Page Header
+# Page UI
 # -----------------------------
 st.markdown('<div class="title">Diagnose</div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="subtitle">Choose how to add a photo:</div>',
+    '<div class="subtitle">Take a photo like the examples below and upload it to estimate your hair-loss stage</div>',
+    unsafe_allow_html=True
+)
+st.markdown(
+    '<div class="subtitle">Make sure the photo is clear and well-lit and capture the top of your head as much as possible</div>',
     unsafe_allow_html=True
 )
 
+# Example image centered
+left, center, right = st.columns([1, 2, 1])
+with center:
+    st.image("assets/hero.jpg", width=450)
+
+st.markdown("<br>", unsafe_allow_html=True)
+
 # -----------------------------
-# Radio selector (bright now)
+# Camera OR Upload (App-like)
 # -----------------------------
 mode = st.radio(
-    "",
+    "Choose how to add a photo:",
     ["📷 Take a photo", "🖼️ Choose from device"],
-    horizontal=True
+    horizontal=True, unsafe_allow_html=True
 )
 
 file = None
 
 if mode == "📷 Take a photo":
-    file = st.camera_input("Take a photo")
+    # On phone: opens camera (and usually offers Photo Library too)
+    file = st.camera_input("Take a photo",
+                unsafe_allow_html=True
+            )
 else:
     file = st.file_uploader("Upload your photo", type=["jpg", "jpeg", "png"])
 
-clicked = False
+# IMPORTANT: your deployed API URL
+API_URL = "https://hairloss-ai-app.onrender.com/predict"
 
 # -----------------------------
 # Preview + Predict
@@ -163,6 +160,7 @@ clicked = False
 if file is not None:
     img = Image.open(file)
 
+    # Show image centered
     col_left, col_center, col_right = st.columns([1, 1.2, 1])
     with col_center:
         st.image(img, width=320)
@@ -171,37 +169,39 @@ if file is not None:
     clicked = st.button("Estimate my hair-loss stage")
     st.markdown("</div>", unsafe_allow_html=True)
 
-# -----------------------------
-# Send to FastAPI
-# -----------------------------
-if clicked and file is not None:
-    files = {
-        "file": (
-            file.name or "image.png",
-            file.getvalue(),
-            file.type or "image/png",
-        )
-    }
+    if clicked:
+        try:
+            # camera_input may not always have a "real" filename, so we set one safely
+            filename = getattr(file, "name", None) or "capture.jpg"
+            content_type = getattr(file, "type", None) or "image/jpeg"
 
-    response = requests.post(API_URL, files=files, timeout=60)
-    response.raise_for_status()
+            files = {"file": (filename, file.getvalue(), content_type)}
+            response = requests.post(API_URL, files=files, timeout=60)
 
-    data = response.json()
+            if response.status_code != 200:
+                st.error(f"API error {response.status_code}: {response.text}")
+            else:
+                data = response.json()
+                pred_label = data.get("prediction", "Unknown")
 
-    st.session_state["pred_label"] = data.get("prediction", "Unknown")
-    st.session_state["uploaded_image_bytes"] = file.getvalue()
+                # Save for Result page
+                st.session_state["pred_label"] = pred_label
+                st.session_state["uploaded_image_bytes"] = file.getvalue()
 
-    st.switch_page("pages/3_Result.py")
+                st.switch_page("pages/3_Result.py")
 
-# -----------------------------
-# Navigation Buttons
-# -----------------------------
-st.markdown('<div class="btnrow">', unsafe_allow_html=True)
-col1, col2 = st.columns([1, 1])
-with col1:
-    if st.button("🏠 Back to Home"):
+        except requests.exceptions.Timeout:
+            st.error("The API took too long to respond. Try again (Render free tier can be slow on the first request).")
+        except requests.exceptions.ConnectionError:
+            st.error("Cannot reach the API. Check the Render URL and that the service is running.")
+        except Exception as e:
+            st.error(f"Unexpected error: {e}")
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+# Back button
+with st.container():
+    st.markdown('<div class="backwrap">', unsafe_allow_html=True)
+    if st.button("🏠  Back to Home"):
         st.switch_page("Home.py")
-with col2:
-    if st.button("🔄 Try Again"):
-        st.rerun()
-st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
