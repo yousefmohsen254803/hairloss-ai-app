@@ -74,7 +74,7 @@ def set_background_png(path: str):
 
         /* File uploader card styling */
         div[data-testid="stFileUploader"] {{
-            background: #e6e6e6 !important;
+            background: #f0f0f0 !important;
             padding: 18px !important;
             border-radius: 16px !important;
             border: 2px solid rgba(255,255,255,0.96) !important;
