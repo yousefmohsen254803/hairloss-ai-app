@@ -72,6 +72,18 @@ def set_background_png(path: str):
 
         
 
+        /* File uploader card styling */
+        div[data-testid="stFileUploader"] {{
+            background: rgba(255,255,255,0.96) !important;
+            padding: 18px !important;
+            border-radius: 16px !important;
+            border: 2px solid rgba(255,255,255,0.96) !important;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25) !important;
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto;
+        }}
+
         /* ===== FIX DARK MODE UPLOADER ===== */
 
         /* Entire uploader container */
