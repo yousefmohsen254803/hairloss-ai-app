@@ -72,16 +72,35 @@ def set_background_png(path: str):
 
         
 
-        /* File uploader card styling */
+        /* ===== FIX DARK MODE UPLOADER ===== */
+
+        /* Entire uploader container */
         div[data-testid="stFileUploader"] {{
             background: rgba(255,255,255,0.96) !important;
-            padding: 18px !important;
-            border-radius: 16px !important;
-            border: 2px solid rgba(255,255,255,0.96) !important;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.25) !important;
-            max-width: 760px;
-            margin-left: auto;
-            margin-right: auto;
+        }}
+
+        /* Inner drag & drop box */
+        div[data-testid="stFileUploader"] section {{
+            background: #ffffff !important;
+            border: 2px dashed #cccccc !important;
+        }}
+
+        /* Text inside drag area */
+        div[data-testid="stFileUploader"] section * {{
+            color: #111 !important;
+            opacity: 1 !important;
+        }}
+
+        /* "Browse files" button */
+        div[data-testid="stFileUploader"] button {{
+            background: #111 !important;
+            color: #ffffff !important;
+            border-radius: 12px !important;
+        }}
+
+        /* Remove dark overlay effect */
+        div[data-testid="stFileUploader"] section:hover {{
+            background: #f5f5f5 !important;
         }}
         div[data-testid="stFileUploader"] label {{
             color: #111 !important;
