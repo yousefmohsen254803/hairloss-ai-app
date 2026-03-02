@@ -167,7 +167,7 @@ file = None
 
 if mode == "📷 Take a photo":
     # On phone: opens camera (and usually offers Photo Library too)
-    file = st.camera_input("Take a photo")
+    file = st.camera_input("")
 else:
     file = st.file_uploader("Upload your photo", type=["jpg", "jpeg", "png"])
 
