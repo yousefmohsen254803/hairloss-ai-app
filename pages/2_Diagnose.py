@@ -41,13 +41,19 @@ def set_background_png(path: str):
             margin-bottom: 20px;
         }}
 
+        /* Keep the two subtitle lines close together */
         .subtitle {{
             text-align: center;
             font-size: 16px;
             color: rgba(255,255,255,0.92);
             margin-top: 0px;
-            margin-bottom: 6px;   /* small space between lines */
-            line-height: 1.4;     /* tighter vertical spacing */
+            margin-bottom: 6px;   /* small space between the two lines */
+            line-height: 1.35;    /* tighter vertical spacing */
+        }}
+
+        /* Add space ONLY between the text block and the example photo */
+        .example-space {{
+            margin-top: 18px;     /* space between subtitle(s) and the photo */
         }}
 
         .radio-title {{
@@ -61,8 +67,8 @@ def set_background_png(path: str):
         /* Make radio option labels bright (selected + unselected) */
         div[role="radiogroup"] label,
         div[role="radiogroup"] label * {{
-        color: rgba(255,255,255,0.98) !important;
-        opacity: 1 !important;
+            color: rgba(255,255,255,0.98) !important;
+            opacity: 1 !important;
         }}
 
         /* Mode selector (radio) text */
@@ -71,11 +77,9 @@ def set_background_png(path: str):
             font-weight: 700 !important;
         }}
 
-        
-
-        /* File uploader card styling */
+        /* File uploader card styling + FIX dark mode readability */
         div[data-testid="stFileUploader"] {{
-            background: #dcdcdc !important;
+            background: rgba(255,255,255,0.96) !important;
             padding: 18px !important;
             border-radius: 16px !important;
             border: 2px solid rgba(255,255,255,0.96) !important;
@@ -83,13 +87,6 @@ def set_background_png(path: str):
             max-width: 760px;
             margin-left: auto;
             margin-right: auto;
-        }}
-
-        /* ===== FIX DARK MODE UPLOADER ===== */
-
-        /* Entire uploader container */
-        div[data-testid="stFileUploader"] {{
-            background: rgba(255,255,255,0.96) !important;
         }}
 
         /* Inner drag & drop box */
@@ -173,6 +170,9 @@ st.markdown(
     '<div class="subtitle">Make sure the photo is clear and well-lit and capture the top of your head as much as possible</div>',
     unsafe_allow_html=True
 )
+
+# ✅ Add space ONLY before the example photo (without pushing the two text lines apart)
+st.markdown('<div class="example-space"></div>', unsafe_allow_html=True)
 
 # Example image centered
 left, center, right = st.columns([1, 2, 1])
