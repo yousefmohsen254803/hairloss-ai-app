@@ -89,7 +89,7 @@ img = Image.open(io.BytesIO(img_bytes))
 # Page UI
 # -----------------------------
 st.markdown('<div class="title">Result</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">Here is your uploaded photo and the predicted stage.</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Here is your uploaded photo and the estimated hair-loss stage.</div>', unsafe_allow_html=True)
 
 # Show the uploaded photo centered
 left, center, right = st.columns([1, 1.2, 1])
