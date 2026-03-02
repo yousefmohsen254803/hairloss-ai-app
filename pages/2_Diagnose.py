@@ -165,8 +165,10 @@ mode = st.radio(
 
 file = None
 
-if mode == "🖼️ Choose from device":
+if mode == "📷 Take a photo":
     # On phone: opens camera (and usually offers Photo Library too)
+    file = st.camera_input("")
+else:
     file = st.file_uploader("Upload your photo", type=["jpg", "jpeg", "png"])
 
 # IMPORTANT: your deployed API URL
