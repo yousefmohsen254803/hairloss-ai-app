@@ -96,7 +96,7 @@ st.markdown(
         color:rgba(255,255,255,0.85);
         margin-top:-10px;
     ">
-        This is not a medical advice. For professional diagnosis and treatment, please consult a healthcare professional.
+        Note: This is not a medical advice. For professional diagnosis and treatment, please consult a healthcare professional.
     </p>
     """,
     unsafe_allow_html=True
