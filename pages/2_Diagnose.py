@@ -49,6 +49,14 @@ def set_background_png(path: str):
             margin-bottom: 14px;
         }}
 
+        .radio-title {{
+            color: rgba(255,255,255,0.98);
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            text-align: left;
+        }}
+
         /* Mode selector (radio) text */
         div[role="radiogroup"] label {{
             color: rgba(255,255,255,0.95) !important;
