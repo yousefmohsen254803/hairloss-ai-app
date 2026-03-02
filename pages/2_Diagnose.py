@@ -105,7 +105,7 @@ st.markdown('<div class="subtitle">Make sure the photo is clear and well-lit and
 # Example image centered (160px)
 left, center, right = st.columns([1, 2, 1])
 with center:
-    st.image("assets/hero.jpg", width=500)
+    st.image("assets/hero.jpg", width=450)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
