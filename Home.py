@@ -87,20 +87,6 @@ with col2:
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-st.markdown(
-    """
-
-    <p style="
-        text-align:center;
-        font-size:18px;
-        color:rgba(255,255,255,0.85);
-        margin-top:-10px;
-    ">
-        Note: This is not a medical advice. For professional diagnosis and treatment, please consult a healthcare professional.
-    </p>
-    """,
-    unsafe_allow_html=True
-)
 
 if st.button("Diagnose my hair"):
     st.switch_page("pages/2_Diagnose.py")
