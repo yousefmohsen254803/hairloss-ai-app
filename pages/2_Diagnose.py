@@ -46,7 +46,7 @@ def set_background_png(path: str):
             font-size: 16px;
             color: rgba(255,255,255,0.92);
             margin-top: 0px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }}
 
         .radio-title {{
