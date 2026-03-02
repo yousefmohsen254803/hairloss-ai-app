@@ -139,6 +139,21 @@ st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
+st.markdown(
+    """
+
+    <p style="
+        text-align:center;
+        font-size:18px;
+        color:rgba(255,255,255,0.85);
+        margin-top:-10px;
+    ">
+        This is not a medical advice. For professional diagnosis and treatment, please consult a healthcare professional.
+    </p>
+    """,
+    unsafe_allow_html=True
+)
+
 # Back to Home (and clear saved result so it doesn't show old data next time)
 with st.container():
     st.markdown('<div class="backwrap">', unsafe_allow_html=True)
