@@ -135,8 +135,13 @@ st.markdown("<br>", unsafe_allow_html=True)
 # -----------------------------
 # Camera OR Upload (App-like)
 # -----------------------------
+st.markdown(
+    '<div class="radio-title">Choose how to add a photo:</div>',
+    unsafe_allow_html=True
+)
+
 mode = st.radio(
-    "Choose how to add a photo:",
+    "",
     ["📷 Take a photo", "🖼️ Choose from device"],
     horizontal=True
 )
