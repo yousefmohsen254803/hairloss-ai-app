@@ -57,9 +57,26 @@ def set_background_png(path: str):
             text-align: left;
         }}
 
+        /* Make radio option labels bright (selected + unselected) */
+        div[role="radiogroup"] label,
+        div[role="radiogroup"] label * {{
+        color: rgba(255,255,255,0.98) !important;
+        opacity: 1 !important;
+        }}
+
         /* Mode selector (radio) text */
         div[role="radiogroup"] label {{
             color: rgba(255,255,255,0.95) !important;
+            font-weight: 700 !important;
+        }}
+
+        /* Camera/Upload widget label text (inside the white box) */
+        div[data-testid="stCameraInput"] label,
+        div[data-testid="stCameraInput"] label * ,
+        div[data-testid="stFileUploader"] label,
+        div[data-testid="stFileUploader"] label * {{
+            color: #111 !important;
+            opacity: 1 !important;
             font-weight: 700 !important;
         }}
 
