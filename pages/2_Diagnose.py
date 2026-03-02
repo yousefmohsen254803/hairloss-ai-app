@@ -74,7 +74,7 @@ def set_background_png(path: str):
 
         /* File uploader card styling */
         div[data-testid="stFileUploader"] {{
-            background: rgba(255,255,255,0.96) !important;
+            background: #e6e6e6 !important;
             padding: 18px !important;
             border-radius: 16px !important;
             border: 2px solid rgba(255,255,255,0.96) !important;
@@ -93,7 +93,7 @@ def set_background_png(path: str):
 
         /* Inner drag & drop box */
         div[data-testid="stFileUploader"] section {{
-            background: #ffffff !important;
+            background: #dcdcdc !important;
             border: 2px dashed #cccccc !important;
         }}
 
