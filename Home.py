@@ -62,7 +62,7 @@ st.markdown(
         text-align:center;
         font-size:18px;
         color:rgba(255,255,255,0.85);
-        margin-top:20px;
+        margin-top:30px;
     ">
         AI-powered tool that help you estimate your hair-loss stage using images
     </p>
