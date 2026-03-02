@@ -1,8 +1,6 @@
 import streamlit as st
 import numpy as np
 from PIL import Image
-import tensorflow as tf
-from tensorflow.keras.applications.efficientnet import preprocess_input
 import base64
 import requests
 
@@ -42,21 +40,28 @@ def set_background_png(path: str):
             text-shadow: 0 6px 28px rgba(0,0,0,0.9);
             margin-bottom: 6px;
         }}
+
         .subtitle {{
             text-align: center;
             font-size: 16px;
             color: rgba(255,255,255,0.92);
             margin-top: 0px;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
         }}
 
+        /* Mode selector (radio) text */
+        div[role="radiogroup"] label {{
+            color: rgba(255,255,255,0.95) !important;
+            font-weight: 700 !important;
+        }}
+
+        /* File uploader card styling */
         div[data-testid="stFileUploader"] {{
             background: rgba(255,255,255,0.96) !important;
             padding: 18px !important;
             border-radius: 16px !important;
             border: 2px solid rgba(255,255,255,0.96) !important;
             box-shadow: 0 12px 30px rgba(0,0,0,0.25) !important;
-
             max-width: 760px;
             margin-left: auto;
             margin-right: auto;
@@ -67,6 +72,22 @@ def set_background_png(path: str):
         }}
         div[data-testid="stFileUploader"] span {{
             color: #333 !important;
+        }}
+
+        /* Camera input card styling */
+        div[data-testid="stCameraInput"] {{
+            background: rgba(255,255,255,0.96) !important;
+            padding: 18px !important;
+            border-radius: 16px !important;
+            border: 2px solid rgba(255,255,255,0.96) !important;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25) !important;
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto;
+        }}
+        div[data-testid="stCameraInput"] label {{
+            color: #111 !important;
+            font-weight: 800 !important;
         }}
 
         div.stButton > button {{
@@ -97,27 +118,47 @@ set_background_png("assets/background.png")
 st.markdown('<div class="title">Diagnose</div>', unsafe_allow_html=True)
 st.markdown(
     '<div class="subtitle">Take a photo like the examples below and upload it to estimate your hair-loss stage</div>',
-    unsafe_allow_html=True)
-st.markdown('<div class="subtitle">Make sure the photo is clear and well-lit and try to capture the top of your head as much as possible</div>',
+    unsafe_allow_html=True
+)
+st.markdown(
+    '<div class="subtitle">Make sure the photo is clear and well-lit and capture the top of your head as much as possible</div>',
     unsafe_allow_html=True
 )
 
-# Example image centered (160px)
+# Example image centered
 left, center, right = st.columns([1, 2, 1])
 with center:
     st.image("assets/hero.jpg", width=450)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-file = st.file_uploader("Upload your photo", type=["jpg", "jpeg", "png"])
+# -----------------------------
+# Camera OR Upload (App-like)
+# -----------------------------
+mode = st.radio(
+    "Choose how to add a photo:",
+    ["📷 Take a photo", "🖼️ Choose from device"],
+    horizontal=True
+)
 
-# IMPORTANT: define API_URL once
+file = None
+
+if mode == "📷 Take a photo":
+    # On phone: opens camera (and usually offers Photo Library too)
+    file = st.camera_input("Take a photo")
+else:
+    file = st.file_uploader("Upload your photo", type=["jpg", "jpeg", "png"])
+
+# IMPORTANT: your deployed API URL
 API_URL = "https://hairloss-ai-app.onrender.com/predict"
 
+# -----------------------------
+# Preview + Predict
+# -----------------------------
 if file is not None:
     img = Image.open(file)
 
-    # Show uploaded image centered
+    # Show image centered
     col_left, col_center, col_right = st.columns([1, 1.2, 1])
     with col_center:
         st.image(img, width=320)
@@ -128,14 +169,18 @@ if file is not None:
 
     if clicked:
         try:
-            files = {"file": (file.name, file.getvalue(), file.type)}
-            response = requests.post(API_URL, files=files, timeout=30)
+            # camera_input may not always have a "real" filename, so we set one safely
+            filename = getattr(file, "name", None) or "capture.jpg"
+            content_type = getattr(file, "type", None) or "image/jpeg"
+
+            files = {"file": (filename, file.getvalue(), content_type)}
+            response = requests.post(API_URL, files=files, timeout=60)
 
             if response.status_code != 200:
                 st.error(f"API error {response.status_code}: {response.text}")
             else:
                 data = response.json()
-                pred_label = data["prediction"]
+                pred_label = data.get("prediction", "Unknown")
 
                 # Save for Result page
                 st.session_state["pred_label"] = pred_label
@@ -143,14 +188,16 @@ if file is not None:
 
                 st.switch_page("pages/3_Result.py")
 
+        except requests.exceptions.Timeout:
+            st.error("The API took too long to respond. Try again (Render free tier can be slow on the first request).")
         except requests.exceptions.ConnectionError:
-            st.error("Cannot reach the API. Make sure FastAPI is running on http://127.0.0.1:8000")
+            st.error("Cannot reach the API. Check the Render URL and that the service is running.")
         except Exception as e:
             st.error(f"Unexpected error: {e}")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# Back to Home with icon
+# Back button
 with st.container():
     st.markdown('<div class="backwrap">', unsafe_allow_html=True)
     if st.button("🏠  Back to Home"):
