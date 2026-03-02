@@ -1,12 +1,10 @@
-import os
+import streamlit as st
+import numpy as np
+from PIL import Image
 import base64
 import requests
-import streamlit as st
-from PIL import Image
 
-# -----------------------------
-# Page config (MUST be first)
-# -----------------------------
+# MUST be first Streamlit call
 st.set_page_config(page_title="Diagnose", layout="centered")
 
 # -----------------------------
@@ -25,7 +23,6 @@ def set_background_png(path: str):
             background-size: cover;
         }}
 
-        /* Make the main area transparent (so background shows) */
         [data-testid="stAppViewContainer"] > .main {{
             background: transparent;
         }}
@@ -49,35 +46,50 @@ def set_background_png(path: str):
             font-size: 16px;
             color: rgba(255,255,255,0.92);
             margin-top: 0px;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
         }}
 
-        /* --- FORCE BRIGHT WIDGET LOOK (even in phone dark mode) --- */
+        /* Mode selector (radio) text */
+        div[role="radiogroup"] label {{
+            color: rgba(255,255,255,0.95) !important;
+            font-weight: 700 !important;
+        }}
 
-        /* Camera box */
+        /* File uploader card styling */
+        div[data-testid="stFileUploader"] {{
+            background: rgba(255,255,255,0.96) !important;
+            padding: 18px !important;
+            border-radius: 16px !important;
+            border: 2px solid rgba(255,255,255,0.96) !important;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25) !important;
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto;
+        }}
+        div[data-testid="stFileUploader"] label {{
+            color: #111 !important;
+            font-weight: 800 !important;
+        }}
+        div[data-testid="stFileUploader"] span {{
+            color: #333 !important;
+        }}
+
+        /* Camera input card styling */
         div[data-testid="stCameraInput"] {{
             background: rgba(255,255,255,0.96) !important;
             padding: 18px !important;
             border-radius: 16px !important;
             border: 2px solid rgba(255,255,255,0.96) !important;
             box-shadow: 0 12px 30px rgba(0,0,0,0.25) !important;
-
             max-width: 760px;
             margin-left: auto;
             margin-right: auto;
         }}
-
-        /* Hide the default label text above the camera input */
         div[data-testid="stCameraInput"] label {{
-            display: none !important;
-        }}
-
-        /* Make any text inside camera input dark */
-        div[data-testid="stCameraInput"] * {{
             color: #111 !important;
+            font-weight: 800 !important;
         }}
 
-        /* Buttons */
         div.stButton > button {{
             border-radius: 14px;
             padding: 12px 14px;
@@ -90,52 +102,63 @@ def set_background_png(path: str):
             margin-right: auto;
         }}
 
-        .backrow {{
-            display: flex;
-            gap: 12px;
-            margin-top: 10px;
+        .backwrap {{
+            max-width: 260px;
         }}
         </style>
         """,
-        unsafe_allow_html=True,
+        unsafe_allow_html=True
     )
 
-
 set_background_png("assets/background.png")
-
-# -----------------------------
-# API endpoint (use your deployed FastAPI)
-# Put your Render URL here (example):
-#   https://YOUR-SERVICE.onrender.com/predict
-# -----------------------------
-API_URL = os.getenv("API_URL", "https://hairloss-ai-app.onrender.com/predict")
 
 # -----------------------------
 # Page UI
 # -----------------------------
 st.markdown('<div class="title">Diagnose</div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="subtitle">Tap the camera button to take a picture (or choose one from your device).</div>',
-    unsafe_allow_html=True,
+    '<div class="subtitle">Take a photo like the examples below and upload it to estimate your hair-loss stage</div>',
+    unsafe_allow_html=True
+)
+st.markdown(
+    '<div class="subtitle">Make sure the photo is clear and well-lit and capture the top of your head as much as possible</div>',
+    unsafe_allow_html=True
 )
 
-# Optional example image (centered)
-l, c, r = st.columns([1, 1, 1])
-with c:
-    st.image("assets/hero.jpg", width=180)
+# Example image centered
+left, center, right = st.columns([1, 2, 1])
+with center:
+    st.image("assets/hero.jpg", width=450)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# ✅ This is the “app-style” mobile behavior:
-# On phone it opens camera, and lets you pick from gallery too.
-camera_file = st.camera_input("Take Picture", label_visibility="collapsed")
+# -----------------------------
+# Camera OR Upload (App-like)
+# -----------------------------
+mode = st.radio(
+    "Choose how to add a photo:",
+    ["📷 Take a photo", "🖼️ Choose from device"],
+    horizontal=True
+)
 
-clicked = False
+file = None
 
-if camera_file is not None:
-    img = Image.open(camera_file)
+if mode == "📷 Take a photo":
+    # On phone: opens camera (and usually offers Photo Library too)
+    file = st.camera_input("Take a photo")
+else:
+    file = st.file_uploader("Upload your photo", type=["jpg", "jpeg", "png"])
 
-    # Preview centered
+# IMPORTANT: your deployed API URL
+API_URL = "https://hairloss-ai-app.onrender.com/predict"
+
+# -----------------------------
+# Preview + Predict
+# -----------------------------
+if file is not None:
+    img = Image.open(file)
+
+    # Show image centered
     col_left, col_center, col_right = st.columns([1, 1.2, 1])
     with col_center:
         st.image(img, width=320)
@@ -144,38 +167,39 @@ if camera_file is not None:
     clicked = st.button("Estimate my hair-loss stage")
     st.markdown("</div>", unsafe_allow_html=True)
 
-# -----------------------------
-# Predict -> go to Result page
-# -----------------------------
-if clicked and camera_file is not None:
-    # send to API as multipart/form-data
-    files = {
-        "file": (
-            camera_file.name or "camera.png",
-            camera_file.getvalue(),
-            camera_file.type or "image/png",
-        )
-    }
+    if clicked:
+        try:
+            # camera_input may not always have a "real" filename, so we set one safely
+            filename = getattr(file, "name", None) or "capture.jpg"
+            content_type = getattr(file, "type", None) or "image/jpeg"
 
-    resp = requests.post(API_URL, files=files, timeout=60)
-    resp.raise_for_status()
-    data = resp.json()
+            files = {"file": (filename, file.getvalue(), content_type)}
+            response = requests.post(API_URL, files=files, timeout=60)
 
-    st.session_state["pred_label"] = data.get("prediction", "Unknown")
-    st.session_state["uploaded_image_bytes"] = camera_file.getvalue()
+            if response.status_code != 200:
+                st.error(f"API error {response.status_code}: {response.text}")
+            else:
+                data = response.json()
+                pred_label = data.get("prediction", "Unknown")
 
-    st.switch_page("pages/3_Result.py")
+                # Save for Result page
+                st.session_state["pred_label"] = pred_label
+                st.session_state["uploaded_image_bytes"] = file.getvalue()
 
-# -----------------------------
-# Navigation buttons
-# -----------------------------
-st.markdown('<div class="backrow">', unsafe_allow_html=True)
-colA, colB = st.columns([1, 1])
-with colA:
-    if st.button("🏠 Back to Home"):
+                st.switch_page("pages/3_Result.py")
+
+        except requests.exceptions.Timeout:
+            st.error("The API took too long to respond. Try again (Render free tier can be slow on the first request).")
+        except requests.exceptions.ConnectionError:
+            st.error("Cannot reach the API. Check the Render URL and that the service is running.")
+        except Exception as e:
+            st.error(f"Unexpected error: {e}")
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+# Back button
+with st.container():
+    st.markdown('<div class="backwrap">', unsafe_allow_html=True)
+    if st.button("🏠  Back to Home"):
         st.switch_page("Home.py")
-with colB:
-    # (optional) let user refresh/take again
-    if st.button("📷 Take another photo"):
-        st.rerun()
-st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
