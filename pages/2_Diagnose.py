@@ -70,15 +70,7 @@ def set_background_png(path: str):
             font-weight: 700 !important;
         }}
 
-        /* Camera/Upload widget label text (inside the white box) */
-        div[data-testid="stCameraInput"] label,
-        div[data-testid="stCameraInput"] label * ,
-        div[data-testid="stFileUploader"] label,
-        div[data-testid="stFileUploader"] label * {{
-            color: #111 !important;
-            opacity: 1 !important;
-            font-weight: 700 !important;
-        }}
+        
 
         /* File uploader card styling */
         div[data-testid="stFileUploader"] {{
