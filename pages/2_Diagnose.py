@@ -38,7 +38,7 @@ def set_background_png(path: str):
             color: white;
             font-weight: 900;
             text-shadow: 0 6px 28px rgba(0,0,0,0.9);
-            margin-bottom: 6px;
+            margin-bottom: 20px;
         }}
 
         .subtitle {{
