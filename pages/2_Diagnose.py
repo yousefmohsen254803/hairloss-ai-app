@@ -41,19 +41,17 @@ def set_background_png(path: str):
             margin-bottom: 20px;
         }}
 
-        /* Keep the two subtitle lines close together */
         .subtitle {{
             text-align: center;
             font-size: 16px;
             color: rgba(255,255,255,0.92);
             margin-top: 0px;
-            margin-bottom: 6px;   /* small space between the two lines */
-            line-height: 1.35;    /* tighter vertical spacing */
+            margin-bottom: 6px;
+            line-height: 1.35;
         }}
 
-        /* Add space ONLY between the text block and the example photo */
         .example-space {{
-            margin-top: 18px;     /* space between subtitle(s) and the photo */
+            margin-top: 18px;
         }}
 
         .radio-title {{
@@ -64,20 +62,17 @@ def set_background_png(path: str):
             text-align: left;
         }}
 
-        /* Make radio option labels bright (selected + unselected) */
         div[role="radiogroup"] label,
         div[role="radiogroup"] label * {{
             color: rgba(255,255,255,0.98) !important;
             opacity: 1 !important;
         }}
 
-        /* Mode selector (radio) text */
         div[role="radiogroup"] label {{
             color: rgba(255,255,255,0.95) !important;
             font-weight: 700 !important;
         }}
 
-        /* File uploader card styling + FIX dark mode readability */
         div[data-testid="stFileUploader"] {{
             background: rgba(255,255,255,0.96) !important;
             padding: 18px !important;
@@ -89,26 +84,22 @@ def set_background_png(path: str):
             margin-right: auto;
         }}
 
-        /* Inner drag & drop box */
         div[data-testid="stFileUploader"] section {{
             background: #dcdcdc !important;
             border: 2px dashed #cccccc !important;
         }}
 
-        /* Text inside drag area */
         div[data-testid="stFileUploader"] section * {{
             color: #111 !important;
             opacity: 1 !important;
         }}
 
-        /* "Browse files" button */
         div[data-testid="stFileUploader"] button {{
             background: #111 !important;
             color: #ffffff !important;
             border-radius: 12px !important;
         }}
 
-        /* Remove dark overlay effect */
         div[data-testid="stFileUploader"] section:hover {{
             background: #f5f5f5 !important;
         }}
@@ -120,7 +111,6 @@ def set_background_png(path: str):
             color: #333 !important;
         }}
 
-        /* Camera input card styling */
         div[data-testid="stCameraInput"] {{
             background: rgba(255,255,255,0.96) !important;
             padding: 18px !important;
@@ -171,10 +161,8 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ✅ Add space ONLY before the example photo (without pushing the two text lines apart)
 st.markdown('<div class="example-space"></div>', unsafe_allow_html=True)
 
-# Example image centered
 left, center, right = st.columns([1, 2, 1])
 with center:
     st.image("assets/hero.jpg", width=450)
@@ -198,12 +186,10 @@ mode = st.radio(
 file = None
 
 if mode == "📷 Take a photo":
-    # On phone: opens camera (and usually offers Photo Library too)
     file = st.camera_input("")
 else:
     file = st.file_uploader("Upload your photo", type=["jpg", "jpeg", "png"])
 
-# IMPORTANT: your deployed API URL
 API_URL = "https://hairloss-ai-app.onrender.com/predict"
 
 # -----------------------------
@@ -212,7 +198,6 @@ API_URL = "https://hairloss-ai-app.onrender.com/predict"
 if file is not None:
     img = Image.open(file)
 
-    # Show image centered
     col_left, col_center, col_right = st.columns([1, 1.2, 1])
     with col_center:
         st.image(img, width=320)
@@ -222,32 +207,44 @@ if file is not None:
     st.markdown("</div>", unsafe_allow_html=True)
 
     if clicked:
-        try:
-            # camera_input may not always have a "real" filename, so we set one safely
-            filename = getattr(file, "name", None) or "capture.jpg"
-            content_type = getattr(file, "type", None) or "image/jpeg"
+        with st.spinner("Analysing your photo, please wait..."):
+            try:
+                # Warmup ping to wake Render from sleep
+                try:
+                    requests.get(
+                        API_URL.replace("/predict", "/health"),
+                        timeout=10
+                    )
+                except Exception:
+                    pass  # Ignore warmup failures, proceed anyway
 
-            files = {"file": (filename, file.getvalue(), content_type)}
-            response = requests.post(API_URL, files=files, timeout=60)
+                filename = getattr(file, "name", None) or "capture.jpg"
+                content_type = getattr(file, "type", None) or "image/jpeg"
 
-            if response.status_code != 200:
-                st.error(f"API error {response.status_code}: {response.text}")
-            else:
-                data = response.json()
-                pred_label = data.get("prediction", "Unknown")
+                # Reset pointer before reading (fixes camera input byte issue)
+                file.seek(0)
+                file_bytes = file.read()
 
-                # Save for Result page
-                st.session_state["pred_label"] = pred_label
-                st.session_state["uploaded_image_bytes"] = file.getvalue()
+                files = {"file": (filename, file_bytes, content_type)}
+                response = requests.post(API_URL, files=files, timeout=90)
 
-                st.switch_page("pages/3_Result.py")
+                if response.status_code != 200:
+                    st.error(f"API error {response.status_code}: {response.text}")
+                else:
+                    data = response.json()
+                    pred_label = data.get("prediction", "Unknown")
 
-        except requests.exceptions.Timeout:
-            st.error("The API took too long to respond. Try again (Render free tier can be slow on the first request).")
-        except requests.exceptions.ConnectionError:
-            st.error("Cannot reach the API. Check the Render URL and that the service is running.")
-        except Exception as e:
-            st.error(f"Unexpected error: {e}")
+                    st.session_state["pred_label"] = pred_label
+                    st.session_state["uploaded_image_bytes"] = file_bytes
+
+                    st.switch_page("pages/3_Result.py")
+
+            except requests.exceptions.Timeout:
+                st.error("The API took too long to respond. Please try again — Render free tier can be slow on the first request.")
+            except requests.exceptions.ConnectionError:
+                st.error("Cannot reach the API. Check the Render URL and that the service is running.")
+            except Exception as e:
+                st.error(f"Unexpected error: {e}")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
