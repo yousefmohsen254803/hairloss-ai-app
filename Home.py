@@ -26,7 +26,7 @@ def set_background_png(path: str):
 
 set_background_png("assets/background.png")
 
-st.set_page_config(page_title="Hair  Stage Estimator", layout="centered")
+st.set_page_config(page_title="Hair Loss Stage Estimator", layout="centered")
 
 def set_background(image_file, mime="png"):
     with open(image_file, "rb") as f:
