@@ -199,7 +199,7 @@ if mode == "📷 Take a photo":
 else:
     file = st.file_uploader("Upload your photo", type=["jpg", "jpeg", "png"])
 
-API_URL = "https://hairloss-ai-app.onrender.com/predict"
+API_URL = "http://api:8000/predict"
 
 if file is not None:
     img = Image.open(file)
