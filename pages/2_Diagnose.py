@@ -271,6 +271,6 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 with st.container():
     st.markdown('<div class="backwrap">', unsafe_allow_html=True)
-    if st.button("🏠 Back to Home"):
+    if st.button("🏠 Home"):
         st.switch_page("Home.py")
     st.markdown("</div>", unsafe_allow_html=True)
