@@ -167,7 +167,7 @@ set_background_png("assets/background.png")
 
 st.markdown('<div class="title">Diagnose</div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="subtitle">Take a photo like the examples below and upload it to estimate your hair-loss stage</div>',
+    '<div class="subtitle">Take or upload a photo like the examples below and upload it to estimate your hair-loss stage</div>',
     unsafe_allow_html=True
 )
 st.markdown(
