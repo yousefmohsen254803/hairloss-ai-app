@@ -82,14 +82,6 @@ def set_background_png(path: str):
             color: white;
         }}
 
-        .note {{
-            text-align: center;
-            font-size: 18px;
-            color: rgba(255,255,255,0.88);
-            margin-top: 16px;
-            line-height: 1.5;
-        }}
-
         div.stButton > button {{
             border-radius: 16px;
             padding: 12px 16px;
@@ -98,10 +90,6 @@ def set_background_png(path: str):
             border: 1px solid rgba(255,255,255,0.18);
             background: rgba(20, 26, 40, 0.88);
             color: white;
-        }}
-
-        .backwrap {{
-            max-width: 260px;
         }}
         </style>
         """,
@@ -132,23 +120,23 @@ if "pred_label" not in st.session_state or "uploaded_image_bytes" not in st.sess
             box-shadow: 0 10px 30px rgba(0,0,0,0.25);
             backdrop-filter: blur(6px);
         ">
-            <div style="
+            <h3 style="
                 font-size: 22px;
                 font-weight: 800;
                 color: white;
-                margin-bottom: 10px;
+                margin: 0 0 12px 0;
             ">
                 No result available yet
-            </div>
+            </h3>
 
-            <div style="
+            <p style="
                 font-size: 17px;
                 color: rgba(255,255,255,0.88);
                 line-height: 1.5;
-                margin-bottom: 6px;
+                margin: 0;
             ">
                 Please go to the Diagnose page first and upload or take a photo to get your AI hair analysis.
-            </div>
+            </p>
         </div>
         """,
         unsafe_allow_html=True
