@@ -28,7 +28,7 @@ def set_background_png(path: str):
         }}
 
         .main .block-container {{
-            max-width: 900px;
+            max-width: 950px;
             padding-top: 2rem;
         }}
 
@@ -49,46 +49,52 @@ def set_background_png(path: str):
             margin-bottom: 18px;
         }}
 
-        .resultbox {{
-            max-width: 760px;
-            margin: 18px auto 0 auto;
-            background: rgba(0,255,170,0.15);
-            border: 2px solid rgba(0,255,170,0.6);
-            padding: 24px;
-            border-radius: 16px;
+        .result-card {{
+            background: rgba(0, 0, 0, 0.65);
+            border: 2px solid rgba(255,255,255,0.16);
+            border-radius: 18px;
+            padding: 24px 18px;
             text-align: center;
-            color: white;
-            box-shadow: 0 0 30px rgba(0,255,170,0.45);
+            min-height: 145px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 10px 26px rgba(0,0,0,0.28);
+            margin-bottom: 18px;
         }}
 
-        .result-label {{
-            font-size: 22px;
+        .card-title {{
+            font-size: 18px;
             font-weight: 700;
-            color: white;
-            margin-bottom: 10px;
-            text-shadow: 0 4px 18px rgba(0,0,0,0.9);
+            color: #9fffe0;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.8);
         }}
 
-        .prediction {{
-            font-size: 42px;
+        .card-value {{
+            font-size: 28px;
             font-weight: 900;
             color: white;
-            margin-bottom: 20px;
+            line-height: 1.3;
             text-shadow: 0 4px 18px rgba(0,0,0,0.9);
+            word-wrap: break-word;
         }}
 
-        .info-line {{
-            font-size: 20px;
+        .card-value-small {{
+            font-size: 22px;
+            font-weight: 800;
             color: white;
-            margin-top: 10px;
+            line-height: 1.35;
             text-shadow: 0 4px 18px rgba(0,0,0,0.9);
+            word-wrap: break-word;
         }}
 
         .note {{
             text-align: center;
             font-size: 18px;
-            color: rgba(255,255,255,0.85);
-            margin-top: 18px;
+            color: rgba(255,255,255,0.88);
+            margin-top: 16px;
+            line-height: 1.5;
         }}
 
         div.stButton > button {{
@@ -177,9 +183,11 @@ st.markdown(
 # Show uploaded image centered
 left, center, right = st.columns([1, 1.2, 1])
 with center:
-    st.image(img, width=360)
+    st.image(img, width=320)
 
-# Result card
+st.markdown("<br>", unsafe_allow_html=True)
+
+# 2 x 2 cards
 col1, col2 = st.columns(2)
 
 with col1:
@@ -211,7 +219,7 @@ with col3:
         f"""
         <div class="result-card">
             <div class="card-title">Hair Density</div>
-            <div class="card-value">{info['density']}</div>
+            <div class="card-value-small">{info['density']}</div>
         </div>
         """,
         unsafe_allow_html=True
@@ -222,7 +230,7 @@ with col4:
         f"""
         <div class="result-card">
             <div class="card-title">Estimated Grafts</div>
-            <div class="card-value">{info['grafts']}</div>
+            <div class="card-value-small">{info['grafts']}</div>
         </div>
         """,
         unsafe_allow_html=True
