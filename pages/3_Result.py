@@ -174,7 +174,7 @@ st.markdown(
 )
 
 # Show uploaded image centered
-left, center, right = st.columns([1, 1.2, 1])
+left, center, right = st.columns([1, 2, 1])
 with center:
     st.image(img, width=400)
 
