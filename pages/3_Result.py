@@ -4,7 +4,7 @@ import base64
 import io
 
 # MUST be first Streamlit call
-st.set_page_config(page_title="Resultssssss", layout="centered")
+st.set_page_config(page_title="Result", layout="centered")
 
 
 # -----------------------------
@@ -182,12 +182,40 @@ with center:
 # Result card
 st.markdown(
     f"""
-    <div class="resultbox">
-        <div class="result-label">AI Hair Analysis</div>
-        <div class="prediction">{pred_label}</div>
-        <div class="info-line">Norwood Stage Estimate: <b>{info['norwood']}</b></div>
-        <div class="info-line">Hair Density: <b>{info['density']}</b></div>
-        <div class="info-line">Estimated Grafts: <b>{info['grafts']}</b></div>
+    <div style="text-align:center;margin-top:10px;">
+        <div style="font-size:42px;font-weight:900;color:white;">
+            {pred_label}
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    f"""
+    <div class="result-card">
+        <div class="result-title">Norwood Stage Estimate</div>
+        <div class="result-value">{info['norwood']}</div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    f"""
+    <div class="result-card">
+        <div class="result-title">Hair Density</div>
+        <div class="result-value">{info['density']}</div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    f"""
+    <div class="result-card">
+        <div class="result-title">Estimated Grafts</div>
+        <div class="result-value">{info['grafts']}</div>
     </div>
     """,
     unsafe_allow_html=True
