@@ -64,21 +64,21 @@ def set_background_png(path: str):
         }}
 
         .card-title {{
-            font-size: 20px;      /* bigger green text */
+            font-size: 20px;
             font-weight: 800;
             color: #9fffe0;
             margin-bottom: 8px;
         }}
 
         .card-value {{
-            font-size: 20px;      /* slightly smaller white text */
-            font-weight: 400;     /* remove bold */
+            font-size: 20px;
+            font-weight: 400;
             color: white;
         }}
 
         .card-value-small {{
             font-size: 18px;
-            font-weight: 400;     /* remove bold */
+            font-weight: 400;
             color: white;
         }}
 
@@ -91,9 +91,13 @@ def set_background_png(path: str):
         }}
 
         div.stButton > button {{
-            border-radius: 14px;
-            padding: 12px 14px;
+            border-radius: 16px;
+            padding: 12px 16px;
             font-weight: 800;
+            min-height: 54px;
+            border: 1px solid rgba(255,255,255,0.18);
+            background: rgba(20, 26, 40, 0.88);
+            color: white;
         }}
 
         .backwrap {{
@@ -136,16 +140,6 @@ if "pred_label" not in st.session_state or "uploaded_image_bytes" not in st.sess
             ">
                 No result available yet
             </div>
-
-            div.stButton > button {
-                border-radius: 16px;
-                padding: 12px 16px;
-                font-weight: 800;
-                min-height: 54px;
-                border: 1px solid rgba(255,255,255,0.18);
-                background: rgba(20, 26, 40, 0.88);
-                color: white;
-            }
 
             <div style="
                 font-size: 17px;
@@ -225,14 +219,12 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Show uploaded image centered
 left, center, right = st.columns([1, 2, 1])
 with center:
     st.image(img, width=400)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# 2 x 2 cards
 col1, col2 = st.columns(2)
 
 with col1:
@@ -281,39 +273,33 @@ with col4:
         unsafe_allow_html=True
     )
 
-# Note
 st.markdown(
-"""
-<div style="
-max-width:850px;
-margin:20px auto;
-padding:6px 18px;
-background:rgba(255, 210, 80, 0.15);
-border-left:6px solid #FFD43B;
-border-radius:8px;
-font-size:16px;
-color:white;
-line-height:1.6;
-">
-
-<b>Note:</b> This result is an <b>AI-based analysis</b>. It is not medical advice. For professional diagnosis or treatment, consult a healthcare professional.
-</div>
-""",
-unsafe_allow_html=True
+    """
+    <div style="
+        max-width:850px;
+        margin:20px auto;
+        padding:6px 18px;
+        background:rgba(255, 210, 80, 0.15);
+        border-left:6px solid #FFD43B;
+        border-radius:8px;
+        font-size:16px;
+        color:white;
+        line-height:1.6;
+    ">
+        <b>Note:</b> This result is an <b>AI-based analysis</b>. It is not medical advice.
+        For professional diagnosis or treatment, consult a healthcare professional.
+    </div>
+    """,
+    unsafe_allow_html=True
 )
 
-# Back buttons
 with st.container():
-    st.markdown('<div class="backwrap">', unsafe_allow_html=True)
-
     col1, col2 = st.columns(2)
 
     with col1:
-        if st.button("🔁 Back to Diagnose"):
+        if st.button("🔁 Back to Diagnose", use_container_width=True):
             st.switch_page("pages/2_Diagnose.py")
 
     with col2:
-        if st.button("🏠 Back to Home"):
+        if st.button("🏠 Back to Home", use_container_width=True):
             st.switch_page("Home.py")
-
-    st.markdown("</div>", unsafe_allow_html=True)
