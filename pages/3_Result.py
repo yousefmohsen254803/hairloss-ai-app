@@ -64,21 +64,21 @@ def set_background_png(path: str):
         }}
 
         .card-title {{
-            font-size: 15px;
-            font-weight: 700;
+            font-size: 20px;      /* bigger green text */
+            font-weight: 800;
             color: #9fffe0;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }}
 
         .card-value {{
-            font-size: 22px;
-            font-weight: 900;
+            font-size: 20px;      /* slightly smaller white text */
+            font-weight: 400;     /* remove bold */
             color: white;
         }}
 
         .card-value-small {{
             font-size: 18px;
-            font-weight: 800;
+            font-weight: 400;     /* remove bold */
             color: white;
         }}
 
