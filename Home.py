@@ -133,10 +133,6 @@ st.markdown(
 <div style="
     max-width:850px;
     margin:20px auto;
-    padding:28px;
-    background:rgba(0,0,0,0.55);
-    border-radius:16px;
-    border:1px solid rgba(255,255,255,0.15);
     color:rgba(255,255,255,0.9);
     font-size:17px;
     line-height:1.6;
