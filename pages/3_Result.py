@@ -132,7 +132,7 @@ if "pred_label" not in st.session_state or "uploaded_image_bytes" not in st.sess
     col_left, col_mid1, col_mid2, col_right = st.columns([1.2, 1.1, 1.1, 1.2])
 
     with col_mid1:
-        if st.button("↩️ Back to Diagnose", use_container_width=True):
+        if st.button("↩️ Back to Diagnose", use_container_width=False):
             st.switch_page("pages/2_Diagnose.py")
 
     with col_mid2:
