@@ -4,7 +4,7 @@ import base64
 import io
 
 # MUST be first Streamlit call
-st.set_page_config(page_title="Result", layout="centered")
+st.set_page_config(page_title="Resultssssss", layout="centered")
 
 
 # -----------------------------
