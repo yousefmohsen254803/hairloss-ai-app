@@ -109,45 +109,22 @@ if "pred_label" not in st.session_state or "uploaded_image_bytes" not in st.sess
     st.markdown('<div class="title">Result</div>', unsafe_allow_html=True)
 
     st.markdown(
-        """
-        <div style="
-            text-align: center;
-            margin: 40px auto 10px auto;
-            max-width: 720px;
-            color: white;
-        ">
-            <div style="
-                font-size: 22px;
-                font-weight: 800;
-                margin-bottom: 12px;
-            ">
-                No result available yet
-            </div>
-
-            <div style="
-                font-size: 18px;
-                line-height: 1.6;
-                color: rgba(255,255,255,0.88);
-            ">
-                Please go to the Diagnose page first and upload or take a photo to get your AI hair analysis.
-            </div>
-        </div>
-        """,
+        "<h3 style='text-align:center; color:white; margin-top:40px; margin-bottom:10px;'>No result available yet</h3>",
         unsafe_allow_html=True
     )
 
-    st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)
+    st.markdown(
+        "<p style='text-align:center; color:rgba(255,255,255,0.88); font-size:18px; line-height:1.6; max-width:720px; margin:0 auto 30px auto;'>Please go to the Diagnose page first and upload or take a photo to get your AI hair analysis.</p>",
+        unsafe_allow_html=True
+    )
 
-    col1, col2, col3 = st.columns([1.2, 1.2, 1.2])
-
-    with col1:
-        st.write("")
+    col1, col2, col3, col4, col5 = st.columns([1.4, 1.2, 0.3, 1.2, 1.4])
 
     with col2:
         if st.button("↩️ Go to Diagnose", use_container_width=True):
             st.switch_page("pages/2_Diagnose.py")
 
-    with col3:
+    with col4:
         if st.button("🏠 Back to Home", use_container_width=True):
             st.switch_page("Home.py")
 
