@@ -180,46 +180,53 @@ with center:
     st.image(img, width=360)
 
 # Result card
-st.markdown(
-    f"""
-    <div style="text-align:center;margin-top:10px;">
-        <div style="font-size:42px;font-weight:900;color:white;">
-            {pred_label}
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown(
+        f"""
+        <div class="result-card">
+            <div class="card-title">Hair Loss Condition</div>
+            <div class="card-value">{pred_label}</div>
         </div>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+        """,
+        unsafe_allow_html=True
+    )
 
-st.markdown(
-    f"""
-    <div class="result-card">
-        <div class="result-title">Norwood Stage Estimate</div>
-        <div class="result-value">{info['norwood']}</div>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+with col2:
+    st.markdown(
+        f"""
+        <div class="result-card">
+            <div class="card-title">Norwood Stage</div>
+            <div class="card-value">{info['norwood']}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-st.markdown(
-    f"""
-    <div class="result-card">
-        <div class="result-title">Hair Density</div>
-        <div class="result-value">{info['density']}</div>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+col3, col4 = st.columns(2)
 
-st.markdown(
-    f"""
-    <div class="result-card">
-        <div class="result-title">Estimated Grafts</div>
-        <div class="result-value">{info['grafts']}</div>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+with col3:
+    st.markdown(
+        f"""
+        <div class="result-card">
+            <div class="card-title">Hair Density</div>
+            <div class="card-value">{info['density']}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+with col4:
+    st.markdown(
+        f"""
+        <div class="result-card">
+            <div class="card-title">Estimated Grafts</div>
+            <div class="card-value">{info['grafts']}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Note
 st.markdown(
