@@ -125,7 +125,7 @@ if "pred_label" not in st.session_state or "uploaded_image_bytes" not in st.sess
             st.switch_page("pages/2_Diagnose.py")
 
     with col4:
-        if st.button("🏠 Back to Home", use_container_width=True):
+        if st.button("🏠 Home", use_container_width=True):
             st.switch_page("Home.py")
 
     st.stop()
@@ -263,5 +263,5 @@ with st.container():
             st.switch_page("pages/2_Diagnose.py")
 
     with col2:
-        if st.button("🏠 Back to Home", use_container_width=True):
+        if st.button("🏠 Home", use_container_width=True):
             st.switch_page("Home.py")
