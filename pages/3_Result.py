@@ -111,8 +111,13 @@ set_background_png("assets/background.png")
 # -----------------------------
 # Guard: if opened directly
 # -----------------------------
+# -----------------------------
+# Guard: if opened directly
+# -----------------------------
 if "pred_label" not in st.session_state or "uploaded_image_bytes" not in st.session_state:
+
     st.markdown('<div class="title">Result</div>', unsafe_allow_html=True)
+
     st.markdown(
         '<div class="subtitle">No results found yet. Please diagnose first.</div>',
         unsafe_allow_html=True
@@ -124,7 +129,7 @@ if "pred_label" not in st.session_state or "uploaded_image_bytes" not in st.sess
         col1, col2 = st.columns(2)
 
         with col1:
-            if st.button("🔁 Back to Diagnose"):
+            if st.button("↩️ Back to Diagnose"):
                 st.switch_page("pages/2_Diagnose.py")
 
         with col2:
@@ -132,6 +137,8 @@ if "pred_label" not in st.session_state or "uploaded_image_bytes" not in st.sess
                 st.switch_page("Home.py")
 
         st.markdown("</div>", unsafe_allow_html=True)
+
+    st.stop()
 
 
 pred_label = st.session_state["pred_label"]
