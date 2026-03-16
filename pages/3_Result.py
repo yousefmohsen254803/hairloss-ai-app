@@ -118,9 +118,20 @@ if "pred_label" not in st.session_state or "uploaded_image_bytes" not in st.sess
         unsafe_allow_html=True
     )
 
-    if st.button("Back to Diagnose"):
-        st.switch_page("pages/2_Diagnose.py")
-    st.stop()
+    if st.container():
+        st.markdown('<div class="backwrap">', unsafe_allow_html=True)
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            if st.button("🔁 Back to Diagnose"):
+                st.switch_page("pages/2_Diagnose.py")
+
+        with col2:
+            if st.button("🏠 Back to Home"):
+                st.switch_page("Home.py")
+
+        st.markdown("</div>", unsafe_allow_html=True)
 
 
 pred_label = st.session_state["pred_label"]
