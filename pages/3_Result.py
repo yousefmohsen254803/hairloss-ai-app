@@ -231,13 +231,26 @@ with col4:
 
 # Note
 st.markdown(
-    """
-    <div class="note">
-        Note: This is an AI-based estimate for project purposes only. It is not medical advice.
-        For professional diagnosis and treatment, please consult a healthcare professional.
-    </div>
-    """,
-    unsafe_allow_html=True
+"""
+<div style="
+max-width:850px;
+margin:20px auto;
+padding:14px 18px;
+background:rgba(255, 210, 80, 0.15);
+border-left:6px solid #FFD43B;
+border-radius:8px;
+font-size:16px;
+color:white;
+line-height:1.6;
+">
+
+<b>Note:</b> This result is an <b>AI-based estimate created for project demonstration purposes only</b>.
+It should not be considered medical advice. For a professional diagnosis or treatment
+recommendations, please consult a qualified healthcare professional.
+
+</div>
+""",
+unsafe_allow_html=True
 )
 
 # Back button
