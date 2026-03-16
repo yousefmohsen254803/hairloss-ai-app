@@ -34,7 +34,7 @@ def set_background_png(path: str):
 
         .title {{
             text-align: center;
-            font-size: 80px;
+            font-size: 60px;
             color: white;
             font-weight: 900;
             text-shadow: 0 6px 28px rgba(0,0,0,0.9);
