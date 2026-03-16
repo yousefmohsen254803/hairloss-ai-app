@@ -99,6 +99,7 @@ unsafe_allow_html=True
 st.markdown(
 """
 <div class="subtitle2">
+</p>
 It analyzes the image and estimates your hair-loss stage according to the Norwood scale like the examples below
 </div>
 """,
