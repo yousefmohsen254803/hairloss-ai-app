@@ -133,7 +133,7 @@ st.markdown(
     text-align:center;
     font-size:18px;
     color:rgba(255,255,255,0.90);
-    margin-top:30px;
+    margin-top:10px;
     max-width:820px;
     margin-left:auto;
     margin-right:auto;
@@ -143,16 +143,16 @@ st.markdown(
 This AI tool does more than classify your hair-loss stage.  
 It also analyzes the <b>hair density</b> in the visible scalp area and estimates the <b>number of grafts that may be required for a potential hair transplant</b>.
 
-<br><br>
+<br>
 
 <b>Hair Density</b> refers to the number of hair follicles growing in a specific area of the scalp, typically measured in grafts per square centimeter.  
 Higher density usually means the scalp is well covered with hair, while lower density can indicate thinning or advanced hair loss.
 
-<br><br>
+<br>
 
 By estimating hair density from the uploaded image, the system can provide a clearer picture of how much hair coverage remains and how severe the thinning might be.
 
-<br><br>
+<br>
 
 <b>Estimated Grafts</b> represent an approximate number of hair follicle grafts that could be required if a hair transplant procedure were considered.  
 This estimate is based on the predicted Norwood stage and the visible hair density.
