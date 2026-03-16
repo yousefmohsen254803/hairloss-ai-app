@@ -83,13 +83,14 @@ def set_background_png(path: str):
         }}
 
         div.stButton > button {{
-            border-radius: 16px;
-            padding: 12px 16px;
+            border-radius: 18px;
+            padding: 14px 18px;
             font-weight: 800;
-            min-height: 54px;
-            border: 1px solid rgba(255,255,255,0.18);
-            background: rgba(20, 26, 40, 0.88);
+            min-height: 56px;
+            border: 1px solid rgba(255,255,255,0.16);
+            background: rgba(18, 24, 38, 0.92);
             color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.22);
         }}
         </style>
         """,
@@ -108,34 +109,45 @@ if "pred_label" not in st.session_state or "uploaded_image_bytes" not in st.sess
     st.markdown('<div class="title">Result</div>', unsafe_allow_html=True)
 
     st.markdown(
-    """
-    <div style="
-        max-width: 620px;
-        margin: 30px auto 0 auto;
-        background: rgba(255,255,255,0.08);
-        border: 1.5px solid rgba(255,255,255,0.18);
-        border-radius: 22px;
-        padding: 32px 28px;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-        backdrop-filter: blur(6px);
-    ">
-        <h3>No result available yet</h3>
-        <p>Please go to the Diagnose page first and upload or take a photo to get your AI hair analysis.</p>
-    </div>
-    """,
-    unsafe_allow_html=True
+        """
+        <div style="
+            text-align: center;
+            margin: 40px auto 10px auto;
+            max-width: 720px;
+            color: white;
+        ">
+            <div style="
+                font-size: 22px;
+                font-weight: 800;
+                margin-bottom: 12px;
+            ">
+                No result available yet
+            </div>
+
+            <div style="
+                font-size: 18px;
+                line-height: 1.6;
+                color: rgba(255,255,255,0.88);
+            ">
+                Please go to the Diagnose page first and upload or take a photo to get your AI hair analysis.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
-    st.markdown("<div style='height: 18px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)
 
-    col_left, col_mid1, col_mid2, col_right = st.columns([1.2, 1.1, 1.1, 1.2])
+    col1, col2, col3 = st.columns([1.2, 1.2, 1.2])
 
-    with col_mid1:
-        if st.button("↩️ Back to Diagnose", use_container_width=False):
+    with col1:
+        st.write("")
+
+    with col2:
+        if st.button("↩️ Go to Diagnose", use_container_width=True):
             st.switch_page("pages/2_Diagnose.py")
 
-    with col_mid2:
+    with col3:
         if st.button("🏠 Back to Home", use_container_width=True):
             st.switch_page("Home.py")
 
