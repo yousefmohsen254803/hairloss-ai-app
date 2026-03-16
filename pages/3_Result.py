@@ -108,38 +108,23 @@ if "pred_label" not in st.session_state or "uploaded_image_bytes" not in st.sess
     st.markdown('<div class="title">Result</div>', unsafe_allow_html=True)
 
     st.markdown(
-        """
-        <div style="
-            max-width: 620px;
-            margin: 30px auto 0 auto;
-            background: rgba(255,255,255,0.08);
-            border: 1.5px solid rgba(255,255,255,0.18);
-            border-radius: 22px;
-            padding: 32px 28px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            backdrop-filter: blur(6px);
-        ">
-            <h3 style="
-                font-size: 22px;
-                font-weight: 800;
-                color: white;
-                margin: 0 0 12px 0;
-            ">
-                No result available yet
-            </h3>
-
-            <p style="
-                font-size: 17px;
-                color: rgba(255,255,255,0.88);
-                line-height: 1.5;
-                margin: 0;
-            ">
-                Please go to the Diagnose page first and upload or take a photo to get your AI hair analysis.
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True
+    """
+    <div style="
+        max-width: 620px;
+        margin: 30px auto 0 auto;
+        background: rgba(255,255,255,0.08);
+        border: 1.5px solid rgba(255,255,255,0.18);
+        border-radius: 22px;
+        padding: 32px 28px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        backdrop-filter: blur(6px);
+    ">
+        <h3>No result available yet</h3>
+        <p>Please go to the Diagnose page first and upload or take a photo to get your AI hair analysis.</p>
+    </div>
+    """,
+    unsafe_allow_html=True
     )
 
     st.markdown("<div style='height: 18px;'></div>", unsafe_allow_html=True)
