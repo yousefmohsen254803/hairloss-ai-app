@@ -115,6 +115,22 @@ This AI tool analyzes the uploaded image and estimates your hair-loss stage usin
 unsafe_allow_html=True
 )
 
+st.markdown(
+"""
+<div style="
+    max-width:850px;
+    margin:10px auto 20px auto;
+    color:rgba(255,255,255,0.9);
+    font-size:17px;
+    line-height:1.6;
+">
+
+<p>
+Example for Norwood stages
+</div>
+""",
+unsafe_allow_html=True
+)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
