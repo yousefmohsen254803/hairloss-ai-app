@@ -176,7 +176,7 @@ st.markdown(
 # Show uploaded image centered
 left, center, right = st.columns([1, 1.2, 1])
 with center:
-    st.image(img, width=320)
+    st.image(img, width=400)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
