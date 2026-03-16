@@ -52,41 +52,34 @@ def set_background_png(path: str):
         .result-card {{
             background: rgba(0, 0, 0, 0.65);
             border: 2px solid rgba(255,255,255,0.16);
-            border-radius: 18px;
-            padding: 24px 18px;
+            border-radius: 14px;
+            padding: 16px 12px;
             text-align: center;
-            min-height: 145px;
+            min-height: 100px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            box-shadow: 0 10px 26px rgba(0,0,0,0.28);
-            margin-bottom: 18px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+            margin-bottom: 12px;
         }}
 
         .card-title {{
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 700;
             color: #9fffe0;
-            margin-bottom: 12px;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+            margin-bottom: 6px;
         }}
 
         .card-value {{
-            font-size: 28px;
+            font-size: 22px;
             font-weight: 900;
             color: white;
-            line-height: 1.3;
-            text-shadow: 0 4px 18px rgba(0,0,0,0.9);
-            word-wrap: break-word;
         }}
 
         .card-value-small {{
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 800;
             color: white;
-            line-height: 1.35;
-            text-shadow: 0 4px 18px rgba(0,0,0,0.9);
-            word-wrap: break-word;
         }}
 
         .note {{
