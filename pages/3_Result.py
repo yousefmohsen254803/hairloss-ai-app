@@ -244,9 +244,7 @@ color:white;
 line-height:1.6;
 ">
 
-<b>Note:</b> This result is an <b>AI-based estimate created for project demonstration purposes only</b>.
-It should not be considered medical advice. For a professional diagnosis or treatment
-recommendations, please consult a qualified healthcare professional.
+<b>Note:</b> This result is an <b>AI-based analysis<b>. It is not medical advice. For professional diagnosis or treatment, consult a healthcare professional.
 
 </div>
 """,
