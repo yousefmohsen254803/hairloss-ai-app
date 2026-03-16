@@ -171,8 +171,23 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown(
-    '<div class="subtitle">Make sure the photo is clear and well-lit and capture the top of your head as much as possible</div>',
-    unsafe_allow_html=True
+"""
+<div style="
+    max-width:850px;
+    margin:10px auto 20px auto;
+    padding:12px 16px;
+    background:rgba(255, 221, 87, 0.15);
+    border-left:5px solid #FFD43B;
+    border-radius:6px;
+    color:#fff;
+    font-size:16px;
+">
+
+<b>Note:</b> Make sure the photo is clear and well-lit and captures the top of your head as much as possible.
+
+</div>
+""",
+unsafe_allow_html=True
 )
 
 st.markdown('<div class="example-space"></div>', unsafe_allow_html=True)
