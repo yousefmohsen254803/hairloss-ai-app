@@ -1,11 +1,11 @@
 import streamlit as st
-import numpy as np
 from PIL import Image
 import base64
 import requests
 import time
 
 st.set_page_config(page_title="Diagnose", layout="centered")
+
 
 def set_background_png(path: str):
     with open(path, "rb") as f:
@@ -146,20 +146,22 @@ def set_background_png(path: str):
         unsafe_allow_html=True
     )
 
+
 def wait_for_api(api_url, max_wait=60):
     health_url = api_url.replace("/predict", "/health")
     start = time.time()
 
     while time.time() - start < max_wait:
         try:
-            r = requests.get(health_url, timeout=5)
-            if r.status_code == 200:
+            response = requests.get(health_url, timeout=5)
+            if response.status_code == 200:
                 return True
         except Exception:
             pass
         time.sleep(2)
 
     return False
+
 
 set_background_png("assets/background.png")
 
@@ -192,43 +194,44 @@ mode = st.radio(
     horizontal=True
 )
 
-file = None
+uploaded_file = None
 
 if mode == "📷 Take a photo":
-    file = st.camera_input("Take a photo")
+    uploaded_file = st.camera_input("Take a photo")
 else:
-    file = st.file_uploader("Upload your photo", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("Upload your photo", type=["jpg", "jpeg", "png"])
 
 API_URL = "https://hairloss-ai-app.onrender.com/predict"
 
-if file is not None:
-    img = Image.open(file)
+if uploaded_file is not None:
+    image = Image.open(uploaded_file).convert("RGB")
 
-    col_left, col_center, col_right = st.columns([1, 1.2, 1])
-    with col_center:
-        st.image(img, width=320)
+    left, center, right = st.columns([1, 1.2, 1])
+    with center:
+        st.image(image, width=320)
 
     st.markdown('<div class="predictwrap">', unsafe_allow_html=True)
-    clicked = st.button("Estimate my hair-loss stage")
+    predict_clicked = st.button("Estimate my hair-loss stage")
     st.markdown("</div>", unsafe_allow_html=True)
 
-    if clicked:
+    if predict_clicked:
         with st.spinner("Analysing your photo, please wait..."):
             try:
-                # Important: reset file pointer before reading
-                file.seek(0)
-                file_bytes = file.read()
+                uploaded_file.seek(0)
+                file_bytes = uploaded_file.read()
 
-                filename = getattr(file, "name", None) or "capture.jpg"
-                content_type = getattr(file, "type", None) or "image/jpeg"
+                filename = getattr(uploaded_file, "name", "capture.jpg")
+                content_type = getattr(uploaded_file, "type", "image/jpeg")
 
-                # Wait until API is fully awake
-                ready = wait_for_api(API_URL, max_wait=60)
-                if not ready:
+                api_ready = wait_for_api(API_URL, max_wait=60)
+                if not api_ready:
                     st.error("The API is still waking up. Please try again in a moment.")
                     st.stop()
 
-                files = {"file": (filename, file_bytes, content_type)}
+                files = {
+                    "file": (filename, file_bytes, content_type)
+                }
+
                 response = requests.post(API_URL, files=files, timeout=120)
 
                 if response.status_code != 200:
@@ -243,7 +246,7 @@ if file is not None:
                     st.switch_page("pages/3_Result.py")
 
             except requests.exceptions.Timeout:
-                st.error("The API took too long to respond. The server may be waking up.")
+                st.error("The API took too long to respond. The server may still be waking up.")
             except requests.exceptions.ConnectionError:
                 st.error("Cannot reach the API. Check whether the Render service is running.")
             except Exception as e:
@@ -253,6 +256,6 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 with st.container():
     st.markdown('<div class="backwrap">', unsafe_allow_html=True)
-    if st.button("🏠  Back to Home"):
+    if st.button("🏠 Back to Home"):
         st.switch_page("Home.py")
     st.markdown("</div>", unsafe_allow_html=True)
