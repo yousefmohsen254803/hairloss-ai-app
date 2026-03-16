@@ -183,7 +183,7 @@ st.markdown(
     font-size:16px;
 ">
 
-<b>Note:</b> Make sure the photo is clear and well-lit.
+<b>Note:</b> Make sure the photo is clear and well-lit and captures the top of your head from the front
 
 </div>
 """,
