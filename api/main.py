@@ -8,10 +8,9 @@ from tensorflow.keras.applications.efficientnet import preprocess_input
 
 app = FastAPI(title="Hair Loss Classifier API")
 
-# Allow Streamlit to call this API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],   # later you can restrict to your domain
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -22,17 +21,20 @@ IMG_SIZE = (224, 224)
 
 model = None
 
-@app.on_event("startup")
-def load_model():
-    global model
-    model = tf.keras.models.load_model("model/model.keras")
-
 def prepare_image(img: Image.Image):
     img = img.convert("RGB").resize(IMG_SIZE)
     arr = np.array(img).astype("float32")
     arr = preprocess_input(arr)
     arr = np.expand_dims(arr, axis=0)
     return arr
+
+@app.on_event("startup")
+def load_model():
+    global model
+    model = tf.keras.models.load_model("model/model.keras")
+
+    dummy = np.zeros((1, 224, 224, 3), dtype=np.float32)
+    model.predict(dummy, verbose=0)
 
 @app.get("/health")
 def health():
@@ -44,7 +46,7 @@ async def predict(file: UploadFile = File(...)):
     img = Image.open(io.BytesIO(contents))
 
     x = prepare_image(img)
-    probs = model.predict(x)[0]
+    probs = model.predict(x, verbose=0)[0]
     idx = int(np.argmax(probs))
 
     return {
