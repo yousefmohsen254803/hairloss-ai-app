@@ -90,6 +90,7 @@ st.markdown(
 """
 <div class="subtitle">
 AI-powered tool that helps you estimate your hair-loss stage using images
+
 </div>
 """,
 unsafe_allow_html=True
