@@ -135,22 +135,22 @@ analysis_map = {
     "Normal Hair": {
         "norwood": "Norwood 1-2",
         "density": "High density (80-100 grafts/cm²)",
-        "grafts": "0 grafts needed"
+        "grafts": "No transplant needed"
     },
     "Moderate Loss": {
         "norwood": "Norwood 3-4",
         "density": "Medium density (60-80 grafts/cm²)",
-        "grafts": "1000-2000 grafts estimated"
+        "grafts": "1000-2000 grafts"
     },
     "Heavy Loss": {
         "norwood": "Norwood 5-6",
         "density": "Low density (40-60 grafts/cm²)",
-        "grafts": "2500-4000 grafts estimated"
+        "grafts": "2500-4000 grafts"
     },
     "Bald": {
         "norwood": "Norwood 7",
         "density": "Very low density (<40 grafts/cm²)",
-        "grafts": "4500-6000 grafts estimated"
+        "grafts": "4500-6000 grafts"
     }
 }
 
