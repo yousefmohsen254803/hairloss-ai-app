@@ -111,32 +111,66 @@ set_background_png("assets/background.png")
 # -----------------------------
 # Guard: if opened directly
 # -----------------------------
-# -----------------------------
-# Guard: if opened directly
-# -----------------------------
 if "pred_label" not in st.session_state or "uploaded_image_bytes" not in st.session_state:
 
     st.markdown('<div class="title">Result</div>', unsafe_allow_html=True)
 
     st.markdown(
-        '<div class="subtitle">No results found yet. Please diagnose first.</div>',
+        """
+        <div style="
+            max-width: 620px;
+            margin: 30px auto 0 auto;
+            background: rgba(255,255,255,0.08);
+            border: 1.5px solid rgba(255,255,255,0.18);
+            border-radius: 22px;
+            padding: 32px 28px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            backdrop-filter: blur(6px);
+        ">
+            <div style="
+                font-size: 22px;
+                font-weight: 800;
+                color: white;
+                margin-bottom: 10px;
+            ">
+                No result available yet
+            </div>
+
+            div.stButton > button {
+                border-radius: 16px;
+                padding: 12px 16px;
+                font-weight: 800;
+                min-height: 54px;
+                border: 1px solid rgba(255,255,255,0.18);
+                background: rgba(20, 26, 40, 0.88);
+                color: white;
+            }
+
+            <div style="
+                font-size: 17px;
+                color: rgba(255,255,255,0.88);
+                line-height: 1.5;
+                margin-bottom: 6px;
+            ">
+                Please go to the Diagnose page first and upload or take a photo to get your AI hair analysis.
+            </div>
+        </div>
+        """,
         unsafe_allow_html=True
     )
 
-    if st.container():
-        st.markdown('<div class="backwrap">', unsafe_allow_html=True)
+    st.markdown("<div style='height: 18px;'></div>", unsafe_allow_html=True)
 
-        col1, col2 = st.columns(2)
+    col_left, col_mid1, col_mid2, col_right = st.columns([1.2, 1.1, 1.1, 1.2])
 
-        with col1:
-            if st.button("↩️ Back to Diagnose"):
-                st.switch_page("pages/2_Diagnose.py")
+    with col_mid1:
+        if st.button("↩️ Back to Diagnose", use_container_width=True):
+            st.switch_page("pages/2_Diagnose.py")
 
-        with col2:
-            if st.button("🏠 Back to Home"):
-                st.switch_page("Home.py")
-
-        st.markdown("</div>", unsafe_allow_html=True)
+    with col_mid2:
+        if st.button("🏠 Back to Home", use_container_width=True):
+            st.switch_page("Home.py")
 
     st.stop()
 
