@@ -235,7 +235,7 @@ st.markdown(
 <div style="
 max-width:850px;
 margin:20px auto;
-padding:2px 18px;
+padding:2px 2px;
 background:rgba(255, 210, 80, 0.15);
 border-left:6px solid #FFD43B;
 border-radius:8px;
