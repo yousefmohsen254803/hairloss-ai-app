@@ -73,7 +73,7 @@ st.markdown(
         color:rgba(255,255,255,0.85);
         margin-top:-10px;
     ">
-        It analyzes the image and estimates your hair-loss stage like the examples below
+        It analyzes the image and estimates your hair-loss stage according to the Norwood scale like the examples below
     </p>
     """,
     unsafe_allow_html=True
