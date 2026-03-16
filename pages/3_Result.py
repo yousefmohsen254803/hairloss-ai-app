@@ -245,7 +245,6 @@ line-height:1.6;
 ">
 
 <b>Note:</b> This result is an <b>AI-based analysis</b>. It is not medical advice. For professional diagnosis or treatment, consult a healthcare professional.
-<p><p>
 </div>
 """,
 unsafe_allow_html=True
