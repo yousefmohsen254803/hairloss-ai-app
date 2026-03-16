@@ -132,7 +132,7 @@ img = Image.open(io.BytesIO(img_bytes))
 # Stage mapping
 # -----------------------------
 analysis_map = {
-    "No Hair Loss": {
+    "Normal Hair": {
         "norwood": "Norwood 1-2",
         "density": "High density (80-100 grafts/cm²)",
         "grafts": "No transplant needed"
