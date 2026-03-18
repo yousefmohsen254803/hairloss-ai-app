@@ -188,7 +188,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 # -----------------------------
 # Button
 # -----------------------------
-col1, col2, col3 = st.columns([2,2,2])
+col1, col2, col3 = st.columns([1,2,1])
 
-if st.button("🔍 Analyse My Hair Loss", use_container_width=False):
+if st.button("🔍 Analyse My Hair Loss", use_container_width=True):
     st.switch_page("pages/2_Diagnose.py")
