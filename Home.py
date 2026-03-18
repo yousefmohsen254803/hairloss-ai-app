@@ -54,7 +54,7 @@ def set_background_png(path: str):
         div.stButton > button {{
             border-radius:14px;
             padding:12px 16px;
-            font-weight:700;
+            font-weight:900;
         }}
 
         .example-img img {{
@@ -190,6 +190,5 @@ st.markdown("<br>", unsafe_allow_html=True)
 # -----------------------------
 col1, col2, col3 = st.columns([2,2,2])
 
-with col2:
-    if st.button("<b>Analyse my hair loss</b>", use_container_width=True):
-        st.switch_page("pages/2_Diagnose.py")
+if st.button("🔍 Analyse My Hair Loss", use_container_width=True):
+    st.switch_page("pages/2_Diagnose.py")
