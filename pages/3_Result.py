@@ -171,6 +171,13 @@ info = analysis_map.get(
     }
 )
 
+price_map = {
+    "Normal Hair": "€0",
+    "Moderate Loss": "€3,000 - €6,000",
+    "Heavy Loss": "€6,000 - €10,000",
+    "Bald": "€10,000 - €15,000"
+}
+price = price_map.get(pred_label, "Unknown")
 
 # -----------------------------
 # Page UI
@@ -234,6 +241,19 @@ with col4:
         """,
         unsafe_allow_html=True
     )
+
+col5, col6 = st.columns(2)
+
+with col5:
+    st.markdown(
+        f"""
+        <div class="result-card">
+            <div class="card-title">Estimated Price</div>
+            <div class="card-value-small">{price}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )    
 
 st.markdown(
     """
