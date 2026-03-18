@@ -54,7 +54,7 @@ def set_background_png(path: str):
         div.stButton > button {{
             border-radius:14px;
             padding:12px 16px;
-            font-weight:900;
+            font-weight:700;
         }}
 
         .example-img img {{
