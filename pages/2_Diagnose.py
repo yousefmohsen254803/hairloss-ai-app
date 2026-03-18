@@ -129,7 +129,7 @@ def set_background_png(path: str):
         div.stButton > button {{
             border-radius: 14px;
             padding: 12px 14px;
-            font-weight: 800;
+            font-weight: 1200;
         }}
 
         .predictwrap {{
