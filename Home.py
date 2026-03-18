@@ -161,7 +161,7 @@ st.markdown(
 ">
 
 <p style="margin-top:0;">
-<b>This tool does not only estimate your hair-loss stage. It uses your image to estimate:</b>
+<b>This tool does not only estimate your hair-loss stage. It uses your image to estimate the following:</b>
 </p>
 
 <h4 style="color:#9fffe0;margin-top:18px;">Hair Density</h4>
