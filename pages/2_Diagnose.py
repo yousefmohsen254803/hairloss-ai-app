@@ -226,7 +226,7 @@ if uploaded_file is not None:
         st.image(image, width=320)
 
     st.markdown('<div class="predictwrap">', unsafe_allow_html=True)
-    predict_clicked = st.button("Estimate my hair-loss stage")
+    predict_clicked = st.button("Analyse Photo", use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
     if predict_clicked:
