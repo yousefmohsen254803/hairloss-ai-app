@@ -107,8 +107,7 @@ st.markdown(
 ">
 
 <p><p><p>
-This AI tool analyzes the uploaded image and estimates your hair-loss stage using the <b>Norwood scale</b>, the most widely used classification system for male pattern baldness. The Norwood scale ranges from Stage 1 (no significant hair loss) to Stage 7 (advanced baldness) and is commonly used by dermatologists and hair-transplant clinics worldwide to evaluate hair loss and plan treatments.
-</p>
+This tool analyzes your image and predicts your stage using the <b>Norwood scale</b>, ranging from Stage 1 (no hair loss) to Stage 7 (advanced baldness).</p>
 
 </div>
 """,
