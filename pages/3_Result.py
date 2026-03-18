@@ -242,7 +242,7 @@ with col4:
         unsafe_allow_html=True
     )
 
-col5, col6 = st.columns([1, 2, 1])
+col1, col2, col3 = st.columns([1, 2, 1])
 
 with col5:
     st.markdown(
