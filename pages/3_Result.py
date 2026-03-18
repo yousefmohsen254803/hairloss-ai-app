@@ -265,3 +265,10 @@ with st.container():
     with col2:
         if st.button("🏠 Home", use_container_width=True):
             st.switch_page("Home.py")
+st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns([1, 2, 1])
+
+with col2:
+    if st.button("📅 Book Appointment", use_container_width=True):
+        st.write("Redirecting to booking page...")            
