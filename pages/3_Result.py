@@ -248,7 +248,7 @@ with col2:
     st.markdown(
         f"""
         <div class="result-card">
-            <div class="card-title">Estimated Price</div>
+            <div class="card-title">Estimated Price For Hair Transplant</div>
             <div class="card-value-small">{price}</div>
         </div>
         """,
