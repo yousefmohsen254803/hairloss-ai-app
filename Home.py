@@ -161,7 +161,7 @@ st.markdown(
 ">
 
 <p style="margin-top:0;">
-<b>This AI tool does more than classify your hair-loss stage. It also estimates hair density and the number of grafts that may be needed for a potential hair transplant.</b>
+This AI tool does more than classify your hair-loss stage. It also estimates hair density and the number of grafts that may be needed for a potential hair transplant.
 </p>
 
 <h4 style="color:#9fffe0;margin-top:18px;">Hair Density</h4>
