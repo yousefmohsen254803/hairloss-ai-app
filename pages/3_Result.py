@@ -172,7 +172,7 @@ info = analysis_map.get(
 )
 
 price_map = {
-    "Normal Hair": "€0",
+    "Normal Hair": "No Transplant Needed",
     "Moderate Loss": "€3,000 - €6,000",
     "Heavy Loss": "€6,000 - €10,000",
     "Bald": "€10,000 - €15,000"
@@ -242,18 +242,26 @@ with col4:
         unsafe_allow_html=True
     )
 
-col1, col2, col3 = st.columns([1, 2, 1])
+col5, col6 = st.columns(2)
 
-with col2:
+with col5:
     st.markdown(
         f"""
         <div class="result-card">
-            <div class="card-title">Estimated Price For Hair Transplant</div>
+            <div class="card-title">Estimated Cost</div>
             <div class="card-value-small">{price}</div>
         </div>
         """,
         unsafe_allow_html=True
-    )    
+    )
+
+with col6:
+    st.markdown(
+        """
+        <div class="result-card" style="opacity:0;"></div>
+        """,
+        unsafe_allow_html=True
+    )  
 
 st.markdown(
     """
