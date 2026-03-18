@@ -1,7 +1,7 @@
 import base64
 import streamlit as st
 
-st.set_page_config(page_title="Hair Loss Stage Estimator", layout="centered")
+st.set_page_config(page_title="Hair Loss Analyzer", layout="centered")
 
 
 # -----------------------------
