@@ -155,9 +155,7 @@ def wait_for_api(api_url, max_wait=60):
         try:
             response = requests.get(health_url, timeout=5)
             if response.status_code == 200:
-                data = response.json()
-                if data.get("model_ready") is True:
-                    return True
+                return True
         except Exception:
             pass
         time.sleep(2)
