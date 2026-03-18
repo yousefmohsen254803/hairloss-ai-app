@@ -244,7 +244,7 @@ with col4:
 
 col1, col2, col3 = st.columns([1, 2, 1])
 
-with col5:
+with col2:
     st.markdown(
         f"""
         <div class="result-card">
