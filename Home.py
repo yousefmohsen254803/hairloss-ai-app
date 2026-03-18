@@ -176,9 +176,7 @@ while lower density may indicate thinning or advanced hair loss.
 <h4 style="color:#9fffe0;margin-top:18px;">Estimated Grafts</h4>
 
 <p>
-Estimated grafts represent an approximate number of hair follicle
-grafts that could be required if a hair transplant procedure were considered.
-This estimate is based on the predicted Norwood stage and the visible hair density.
+Estimated grafts indicate how many hair follicles may be needed if a transplant is considered.
 </p>
 
 </div>
