@@ -76,7 +76,7 @@ set_background_png("assets/background.png")
 st.markdown(
 """
 <div class="title">
-Hair Loss Stage Estimator
+Hair Loss Analyzer
 </div>
 """,
 unsafe_allow_html=True
